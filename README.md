@@ -59,6 +59,7 @@ Some scripts are available under `docker` directory to help you with container m
 - Run `./docker/restart_container.sh` to restart the container
 - Run `./docker/stop_container.sh` to stop the container
 - Run `./docker/rm_container.sh` to delete the container
+- Run `./docker/rm_image.sh` to delete the image
 
 ## Exercises
 
