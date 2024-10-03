@@ -22,11 +22,16 @@ jobs:
     runs-on: [self-hosted, ubuntu-22.04, X64]
     steps:
       - uses: actions/checkout@v4
-      - name: Build and push
-        env:
-          DOCKER_TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and push AMD64 image
         run: |
-          echo $DOCKER_TOKEN | docker login --username ${{secrets.DOCKER_HUB_USER}} --password-stdin
+          set -xe
           docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-amd64 --no-cache --platform linux/amd64
           docker push zettascaletech/roscon2024_workshop-amd64
 
@@ -35,11 +40,16 @@ jobs:
     runs-on: [self-hosted, ubuntu-22.04, ARM64]
     steps:
       - uses: actions/checkout@v4
-      - name: Build and push
-        env:
-          DOCKER_TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build and push ARM64 image
         run: |
-          echo $DOCKER_TOKEN | docker login --username ${{secrets.DOCKER_HUB_USER}} --password-stdin
+          set -xe
           docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-arm64 --no-cache --platform linux/arm64/v8
           docker push zettascaletech/roscon2024_workshop-arm64
 
@@ -48,10 +58,16 @@ jobs:
     needs: [docker-build-amd64, docker-build-arm64]
     runs-on: [self-hosted, ubuntu-22.04, X64]
     steps:
-      - name: Build and push
-        env:
-          DOCKER_TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Create and push Docker manifest
         run: |
-          echo $DOCKER_TOKEN | docker login --username ${{secrets.DOCKER_HUB_USER}} --password-stdin
-          docker manifest create zettascaletech/roscon2024_workshop zettascaletech/roscon2024_workshop-amd64 zettascaletech/roscon2024_workshop-arm64
+          set -xe
+          docker manifest create zettascaletech/roscon2024_workshop \
+            zettascaletech/roscon2024_workshop-amd64 \
+            zettascaletech/roscon2024_workshop-arm64
           docker manifest push zettascaletech/roscon2024_workshop
