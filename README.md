@@ -1,11 +1,35 @@
-# roscon2024_workshop
-Zenoh workshop at ROSCon 2024
+<div align="center">
 
+  <h1>🐲🇩🇰 Zenoh ROSCon 2024 Workshop</h1>
+
+  <p>
+    <strong> Your first steps with Zenoh as an RMW in ROS 2 </strong>
+  </p>
+
+  <p>
+    <a href="https://choosealicense.com/licenses/epl-2.0/"><img alt="License EPL" src="https://img.shields.io/badge/License-EPL%202.0-blue"/></a>
+    <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License EPL" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
+  </p>
+
+<sub>Built by the <a href="https://zenoh.io">Zenoh</a> team at <a href="https://www.zettascale.tech">ZettaScale</a> with ❤️</sub>
+</div>
+
+## About
+
+Welcome! This repository is part of the `Demystifying ROS 2 Networking` workshop, scheduled to take place on October 21st at ROSCon 2024. It contains all the resources you’ll need to get started with `rmw_zenoh`, the Zenoh middleware for `ROS 2`.
+
+In this hands-on workshop, you’ll explore how to leverage Zenoh as a ROS 2 middleware (RMW) layer. Whether you're new to Zenoh or looking to deepen your understanding of it, this workshop is designed to give you practical insights through simple demonstrations.
+
+What's Included:
+* Dockerized environment: Pre-configured for easy setup and reproducibility.
+* Simple ROS 2 applications: Designed to showcase the use of rmw_zenoh.
+* Scripts and utilities: Simplifying container management and environment setup.
+
+Get ready to dive into the exciting world of ROS 2 networking with Zenoh!
 
 ## Environment
 
-All the workshop is using Docker containers.  
-So you need a host running Docker. `amd64` or `arm64` architectures are both supported.
+All the workshop is using Docker containers, so you need a host running Docker. `amd64` or `arm64` architectures are both supported.
 
 ### Docker image installation
 
@@ -20,7 +44,7 @@ You can also build it yourself running the provided `build_image.sh` script:
 ```
 The image will be named `roscon2024_workshop` or with the `$IMAGE_NAME` environment variable if defined.
 
-The image have ROS 2 Jazzy Jalisco installed with lot of ROS 2 packages already available (`ros-jazzy-desktop-full` package is installed). It also has a workspace under `/ros_ws` with `rmw_zenoh` already built and installed from sources.
+The image have ROS 2 Jazzy Jalisco (core) installed with the demo ROS 2 packages already available. It also has a workspace under `/ros_ws` with `rmw_zenoh` already built and installed from sources.
 
 ### Docker container usage
 
