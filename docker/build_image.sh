@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE_NAME=${IMAGE_NAME:-roscon2024_workshop}
+IMAGE_NAME=${IMAGE_NAME:-zettascaletech/roscon2024_workshop}
 
 BASE_DIR=`dirname $0`
 cd `dirname $0`

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE=${IMAGE:-roscon2024_workshop}
+IMAGE=${IMAGE:-zettascaletech/roscon2024_workshop}
 CONTAINER_NAME=${CONTAINER_NAME:-roscon2024_workshop}
 
 SCRIPT_DIR=`dirname $0`
