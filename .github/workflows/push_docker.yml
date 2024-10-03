@@ -17,8 +17,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  docker-build:
-    name: Docker build and push
+  docker-build-amd64:
+    name: Docker AMD64 build and push
     runs-on: [self-hosted, ubuntu-22.04, X64]
     steps:
       - uses: actions/checkout@v4
@@ -27,5 +27,29 @@ jobs:
           DOCKER_TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
         run: |
           echo $DOCKER_TOKEN | docker login --username ${{secrets.DOCKER_HUB_USER}} --password-stdin
-          docker buildx create --name builder-context --use --bootstrap
-          docker buildx build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop --no-cache --platform linux/amd64,linux/arm64 --push
+          docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-amd64 --no-cache --platform linux/amd64
+
+  docker-build-arm64:
+    name: Docker ARM64 build and push
+    runs-on: [self-hosted, ubuntu-22.04, ARM64]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and push
+        env:
+          DOCKER_TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
+        run: |
+          echo $DOCKER_TOKEN | docker login --username ${{secrets.DOCKER_HUB_USER}} --password-stdin
+          docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-arm64 --no-cache --platform linux/arm64/v8
+
+  docker-build-manifest:
+    name: Docker manifest build and push
+    needs: [docker-build-amd64, docker-build-arm64]
+    runs-on: [self-hosted, ubuntu-22.04, X64]
+    steps:
+      - name: Build and push
+        env:
+          DOCKER_TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
+        run: |
+          echo $DOCKER_TOKEN | docker login --username ${{secrets.DOCKER_HUB_USER}} --password-stdin
+          docker manifest create zettascaletech/roscon2024_workshop zettascaletech/roscon2024_workshop-amd64 zettascaletech/roscon2024_workshop-arm64
+          docker manifest push zettascaletech/roscon2024_workshop
