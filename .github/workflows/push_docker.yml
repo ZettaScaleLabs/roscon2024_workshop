@@ -28,6 +28,7 @@ jobs:
         run: |
           echo $DOCKER_TOKEN | docker login --username ${{secrets.DOCKER_HUB_USER}} --password-stdin
           docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-amd64 --no-cache --platform linux/amd64
+          docker push zettascaletech/roscon2024_workshop-amd64
 
   docker-build-arm64:
     name: Docker ARM64 build and push
@@ -40,6 +41,7 @@ jobs:
         run: |
           echo $DOCKER_TOKEN | docker login --username ${{secrets.DOCKER_HUB_USER}} --password-stdin
           docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-arm64 --no-cache --platform linux/arm64/v8
+          docker push zettascaletech/roscon2024_workshop-arm64
 
   docker-build-manifest:
     name: Docker manifest build and push
