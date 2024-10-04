@@ -2,7 +2,7 @@
 
 set -xe
 
-CONTAINER_NAME=${CONTAINER_NAME:-roscon2024_workshop}
+CONTAINER_NAME=${CONTAINER_NAME:-workshop_roscon2024}
 
 if docker ps -f name="$CONTAINER_NAME" | grep -q "$CONTAINER_NAME"; then
     docker container stop "$CONTAINER_NAME" > /dev/null
