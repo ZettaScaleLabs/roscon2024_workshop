@@ -64,6 +64,12 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
+      - name: Pull the latest images for both architectures
+        run: |
+          set -xe
+          docker pull zettascaletech/roscon2024_workshop-amd64
+          docker pull zettascaletech/roscon2024_workshop-arm64
+
       - name: Create and push Docker manifest
         run: |
           set -xe
