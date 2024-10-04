@@ -67,7 +67,7 @@ jobs:
       - name: Create and push Docker manifest
         run: |
           set -xe
-          docker manifest create zettascaletech/roscon2024_workshop \
+          docker manifest create --amend zettascaletech/roscon2024_workshop \
             zettascaletech/roscon2024_workshop-amd64 \
             zettascaletech/roscon2024_workshop-arm64
           docker manifest push zettascaletech/roscon2024_workshop
