@@ -2,7 +2,7 @@
 
 set -xe
 
-IMAGE_NAME=${IMAGE_NAME:-zettascaletech/roscon2024_workshop}
+IMAGE_NAME=${IMAGE_NAME:-zettascaletech/workshop_roscon2024}
 
 BASE_DIR=$(cd "$(dirname "$0")" && pwd)
 
