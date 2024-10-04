@@ -35,7 +35,7 @@ All the workshop is using Docker containers, so you need a host running Docker. 
 
 The simplest is to pull it from Docker hub:
 ```bash
-docker pull zettascaletech/workshop_roscon2024
+docker pull zettascaletech/workshop_roscon2024:v2.0
 ```
 
 You can also build it yourself running the provided `build_image.sh` script:
