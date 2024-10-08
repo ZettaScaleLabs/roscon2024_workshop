@@ -42,14 +42,14 @@ You can also build it yourself running the provided `build_image.sh` script:
 ```bash
 ./docker/build_image.sh
 ```
-The image will be named `workshop_roscon2024` or with the `$IMAGE_NAME` environment variable if defined.
+The image will be named `roscon2024_workshop` or with the `$IMAGE_NAME` environment variable if defined.
 
 The image have ROS 2 Jazzy Jalisco (core) installed with the demo ROS 2 packages already available. It also has a workspace under `/ros_ws` with `rmw_zenoh` already built and installed from sources.
 
 ### Docker container usage
 
 Some scripts are available under `docker` directory to help you with container management:
-- Run `./docker/create_container.sh` to create a new container named `workshop_roscon2024` or with the `$CONTAINER_NAME` environment variable if defined.  
+- Run `./docker/create_container.sh` to create a new container named `roscon2024_workshop` or with the `$CONTAINER_NAME` environment variable if defined.  
   Some important directories in this container:
   - `/ros_ws`: the ROS workspace
   - `/ros_ws/src/rmw_zenoh`: `rmw_zenoh` sources (it's already built and installed in the workspace)

@@ -3,7 +3,7 @@
 set -xe
 
 IMAGE=${IMAGE:-zettascaletech/roscon2024_workshop}
-CONTAINER_NAME=${CONTAINER_NAME:-workshop_roscon2024}
+CONTAINER_NAME=${CONTAINER_NAME:-roscon2024_workshop}
 
 BASE_DIR=$(cd "$(dirname "$0")/.." && pwd)
 
