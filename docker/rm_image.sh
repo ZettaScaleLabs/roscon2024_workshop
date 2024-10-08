@@ -2,7 +2,7 @@
 
 set -xe
 
-IMAGE_NAME=${IMAGE_NAME:-zettascaletech/workshop_roscon2024}
+IMAGE_NAME=${IMAGE_NAME:-zettascaletech/roscon2024_workshop}
 
 if docker images | grep -q "$IMAGE_NAME"; then
     docker rmi -f "$IMAGE_NAME"
