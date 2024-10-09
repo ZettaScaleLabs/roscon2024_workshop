@@ -29,7 +29,7 @@ And the container was created with a mapping of host' port 7447 to container por
 
 ### Run
 
-Now you can run the following commands:
+Now you can run the following commands in your respective containers:
 - In container A:
   - `ZENOH_ROUTER_CONFIG_URI=/ros_ws/zenoh_confs/ROUTER_CONFIG.json5 ros2 run rmw_zenoh_cpp rmw_zenohd`
   - `ros2 run demo_nodes_cpp talker`
@@ -47,7 +47,7 @@ You can also check that if you kill a router the communication stops. If your re
 
 Try to add more connections to other attendees' containers (`connect.endpoints` configuration is a list).
 Each of you can run within its container:
-- `ros2 topic pub /chatter std_msgs/msg/String "data: Hello from <YOUR_NAME>"`
+- `ros2 topic pub /chatter std_msgs/msg/String "data: Hello from <YOUR_NAME>"` - (replacing `<YOUR_NAME>`)
 - `ros2 topic echo /chatter`
 
 Also try different configuration of inter-connections such as a chain:
@@ -67,7 +67,7 @@ export ROUTER_PORT=7448
 ```
 The scripts in [docker/](../docker/) directory will use those environment variables.
 
-To connect the router running in the original container to the router running in this new container, use this configuration in `ROUTER_CONFIG.json5`:
+To connect the router running in the original container to the router running in this new container, use this configuration in your `zenoh_confs/ROUTER_CONFIG.json5` file:
 ```json5
   connect: {
     endpoints: [
