@@ -89,3 +89,5 @@ Within the same container, login with 3 different terminals to experiment with `
 - `ros2 run rmw_zenoh_cpp rmw_zenohd`: starts the router - the talker shall now publish
 - `ros2 run demo_nodes_cpp listener`: the listener shall receive messages from the talker
 - CTRL+C on zenoh router: the talker and listener shall continue to exchange messages
+
+![talker-listener](pictures/talker-listener.png)
