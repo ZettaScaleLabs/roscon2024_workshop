@@ -1,9 +1,9 @@
 #!/bin/bash
 
-set -xe
-
+# Name of the Docker image to build
 IMAGE_NAME=${IMAGE_NAME:-zettascaletech/roscon2024_workshop}
 
+# Get absolute path to base directory (roscon2024_workshop/docker/ dir)
 BASE_DIR=$(cd "$(dirname "$0")" && pwd)
 
 if [ ! "$(docker images -q "${IMAGE_NAME}")" ]; then
