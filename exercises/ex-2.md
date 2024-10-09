@@ -1,6 +1,5 @@
 # Exercise 2 - Routers connections
 
-### Preparation
 
 The second role of the Zenoh router is to route the traffic for external communications.  
 The benefits being:
@@ -8,6 +7,8 @@ The benefits being:
   - automatic batching of small messages for a better throughput
   - smaller surface of attack (only 1 port open)
   - a single place to configure access control and downsampling
+
+### Configuration
 
 Partner with another attendee and decide who will connect his container (A) to the other's container (B).  
 The attendee with container A must create a configuration file for the router to connect the router in container B:
@@ -40,6 +41,40 @@ You can switch the containers running `talker` and `listener`, meaning the inter
 You can also check that if you kill a router the communication stops. If your restart it, the communication resumes.
 
 <p align="center"><img src="pictures/talker-listener-2-containers.png"  height="250"/></p>
+
+
+### Bonus - multiple routers inter-connections
+
+Try to add more connections to other attendees' containers (`connect.endpoints` configuration is a list).
+Each of you can run within its container:
+- `ros2 topic pub /chatter std_msgs/msg/String "data: Hello from <YOUR_NAME>"`
+- `ros2 topic echo /chatter`
+
+Also try different configuration of inter-connections such as a chain:
+
+<p align="center"><img src="pictures/talker-listener-3-containers.png"  height="250"/></p>
+
+
+### Note - starting another container on the same host
+
+You can run another container with `rmw_zenoh` on the same host.
+You just need to use a different container name and a different port mapping.
+
+In each terminal you use for the 2nd container, export those environment variables:
+```bash
+export CONTAINER_NAME=container_B
+export ROUTER_PORT=7448
+```
+The scripts in [docker/](../docker/) directory will use those environment variables.
+
+To connect the router running in the original container to the router running in this new container, use this configuration in `ROUTER_CONFIG.json5`:
+```json5
+  connect: {
+    endpoints: [
+      "tcp/host.docker.internal:7448"
+    ],
+  },
+```
 
 ---
 [Next exercise ➡️](ex-3.md)
