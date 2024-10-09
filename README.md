@@ -44,24 +44,40 @@ You can also build it yourself running the provided `build_image.sh` script:
 ```
 The image will be named `roscon2024_workshop` or with the `$IMAGE_NAME` environment variable if defined.
 
-The image have ROS 2 Jazzy Jalisco (core) installed with the demo ROS 2 packages already available. It also has a workspace under `/ros_ws` with `rmw_zenoh` already built and installed from sources.
+The image have ROS 2 Jazzy Jalisco (core) installed with the demo ROS 2 packages already available. It also has a workspace under `/ros_ws` with `rmw_zenoh` already built and installed from sources. Both Jazzy and workspace environments are automatically loaded at `bash` startup (see `/root/.bashrc` file).
 
 ### Docker container usage
 
 Some scripts are available under `docker` directory to help you with container management:
-- Run `./docker/create_container.sh` to create a new container named `roscon2024_workshop` or with the `$CONTAINER_NAME` environment variable if defined.  
+- Run [`./docker/create_container.sh`](docker/create_container.sh) to create a new container named `roscon2024_workshop` or with the `$CONTAINER_NAME` environment variable if defined.  
   Some important directories in this container:
   - `/ros_ws`: the ROS workspace
   - `/ros_ws/src/rmw_zenoh`: `rmw_zenoh` sources (it's already built and installed in the workspace)
   - `/ros_ws/zenoh_confs`: a volume corresponding to the `zenoh_confs/` directory in this reporitory
 
-- Run `./docker/login_container.sh` to start a bash shell within the container
-- Run `./docker/restart_container.sh` to restart the container
-- Run `./docker/stop_container.sh` to stop the container
-- Run `./docker/rm_container.sh` to delete the container
-- Run `./docker/rm_image.sh` to delete the image
+- Run [`./docker/login_container.sh`](docker/login_container.sh) to start a bash shell within the container
+- Run [`./docker/restart_container.sh`](docker/restart_container.sh) to restart the container
+- Run [`./docker/stop_container.sh`](docker/stop_container.sh) to stop the container
+- Run [`./docker/rm_container.sh`](docker/rm_container.sh) to delete the container
+- Run [`./docker/rm_image.sh`](docker/rm_image.sh) to delete the image
+
+---
 
 ## Exercises
+
+### 0. Pull and build rmw_zenoh
+<details>
+<summary>This step is optional...</summary>
+
+...since rmw_zenoh sources are already pulled from a recent version in `/ros_ws/src/rmw_zenoh` and build and installed.
+
+However, you can refresh and re-build rmw_zenoh from sources running the following commands:
+- `cd /ros_ws/src/rmw_zenoh`
+- `git pull`
+- `cd /ros_ws`
+- `colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release`
+
+</details>
 
 ### 1. Zenoh router and ROS Nodes
 
@@ -73,5 +89,3 @@ Within the same container, login with 3 different terminals to experiment with `
 - `ros2 run rmw_zenoh_cpp rmw_zenohd`: starts the router - the talker shall now publish
 - `ros2 run demo_nodes_cpp listener`: the listener shall receive messages from the talker
 - CTRL+C on zenoh router: the talker and listener shall continue to exchange messages
-
-
