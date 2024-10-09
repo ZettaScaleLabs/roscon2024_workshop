@@ -65,7 +65,7 @@ Some scripts are available under `docker` directory to help you with container m
 
 ## Exercises
 
-### 0. Pull and build rmw_zenoh
+### Exercise 0 - Pull and build rmw_zenoh
 <details>
 <summary>This step is optional...</summary>
 
@@ -79,54 +79,6 @@ However, you can refresh and re-build rmw_zenoh from sources running the followi
 
 </details>
 
-### 1. Zenoh router and ROS Nodes
+### [Exercise 1 - Zenoh router and ROS Nodes](exercises/ex-1.md)
 
-The first role of the Zenoh router in ROS 2 is to act as a discovery service for the ROS Nodes running on the same host.  
-Each Node automatically tries to connect to the local router at startup, waiting for it if connection fails. The router forwards the locators (IP+port) of each Nodes to other Nodes, so they automatically establish peer-to-peer connection with each other. Once interconnected, 2 Nodes no longer need the router to communicate with each other.
-
-Within the same container, login with 3 different terminals to experiment with `demo_nodes_cpp`'s `talker` and `listener` running:
-- `ros2 run demo_nodes_cpp talker`: the talker is waiting for the Zenoh router
-- `ros2 run rmw_zenoh_cpp rmw_zenohd`: starts the router - the talker shall now publish
-- `ros2 run demo_nodes_cpp listener`: the listener shall receive messages from the talker
-- CTRL+C on zenoh router: the talker and listener shall continue to exchange messages
-
-<p align="center"><img src="pictures/talker-listener.png"  height="250"/></p>
-
-### 2. Routers connections
-
-The second role of the Zenoh router is to route the traffic for external communications.  
-The benefits being:
-  - less interconnections between Nodes and thus less network overhead
-  - automatic batching of small messages for a better throughput
-  - smaller surface of attack (only 1 port open)
-  - a single place to configure access control and downsampling
-
-Partner with another attendee and decide who will connect his container (A) to the other's container (B).  
-The attendee with container A must create a configuration file for the router to connect the router in container B:
-
-- copy the file `zenoh_confs/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5` as `zenoh_confs/ROUTER_CONFIG.json5`
-- edit `zenoh_confs/ROUTER_CONFIG.json5` and set a `connect.endpoints` configuration as such:
-  ```json5
-  connect: {
-    endpoints: [
-      "tcp/<host_B_IP>:7447"
-    ],
-  },
-  ```
-  Where `<host_B_IP>` is the IP address of the host running the container B.
-
-The attendee with container B has nothing to do. By default the Zenoh router is listening to incoming TCP connections on port 7447 via any network interface.
-And the container was created with a mapping of host' port 7447 to container port 7447.
-
-Now you can run the following commands:
-- In container A:
-  - `ZENOH_ROUTER_CONFIG_URI=/ros_ws/zenoh_confs/ROUTER_CONFIG.json5 ros2 run rmw_zenoh_cpp rmw_zenohd`
-  - `ros2 run demo_nodes_cpp talker`
-- In container B:
-  - `ros2 run rmw_zenoh_cpp rmw_zenohd`
-  - `ros2 run demo_nodes_cpp listener`
-
-You can switch the containers running `talker` and `listener`, meaning the interconnection between the routers is well bi-directional.  
-You can also check that if you kill a router the communication stops. If your restart it, the communication resumes.
-
-<p align="center"><img src="pictures/talker-listener-2-containers.png"  height="250"/></p>
+### [Exercise 2 - Routers connections](exercises/ex-2.md)
