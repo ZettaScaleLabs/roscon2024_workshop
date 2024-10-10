@@ -89,7 +89,7 @@ However as the containers are configured to use the host network, the routers in
 In each shell running in your 2nd container, export those environment variables:
 ```bash
 export ZENOH_ROUTER_CONFIG_URI=/ros_ws/zenoh_confs/CONTAINER_2_ROUTER_CONFIG.json5
-export ZENOH_ROUTER_SESSION_URI=/ros_ws/zenoh_confs/CONTAINER_2_SESSION_CONFIG.json5
+export ZENOH_SESSION_CONFIG_URI=/ros_ws/zenoh_confs/CONTAINER_2_SESSION_CONFIG.json5
 ```
 
 ---
