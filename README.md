@@ -49,7 +49,8 @@ The image have ROS 2 Jazzy Jalisco (core) installed with the demo ROS 2 packages
 ### Docker container usage
 
 Some scripts are available under `docker` directory to help you with container management:
-- Run [`./docker/create_container.sh`](docker/create_container.sh) to create a new container named `roscon2024_workshop` or with the `$CONTAINER_NAME` environment variable if defined.  
+- Run [`./docker/create_container.sh`](docker/create_container.sh) to create a new container named `roscon2024_workshop` or with the `$CONTAINER_NAME` environment variable if defined.
+  The container uses the host network (option `--net host`).  
   Some important directories in this container:
   - `/ros_ws`: the ROS workspace
   - `/ros_ws/src/rmw_zenoh`: `rmw_zenoh` sources (it's already built and installed in the workspace)
