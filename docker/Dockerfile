@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     clang \
     ros-dev-tools \
     vim \
-    iputils-ping && \
+    iputils-ping iproute2 && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
