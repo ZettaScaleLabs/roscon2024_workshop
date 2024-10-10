@@ -82,3 +82,5 @@ However, you can refresh and re-build rmw_zenoh from sources running the followi
 ### [Exercise 1 - Zenoh router and ROS Nodes](exercises/ex-1.md)
 
 ### [Exercise 2 - Routers connections](exercises/ex-2.md)
+
+### [Exercise 3 - Remote connection via the Cloud](exercises/ex-3.md)

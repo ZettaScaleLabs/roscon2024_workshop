@@ -1,8 +1,8 @@
-# Exercise 2 - Remote connection via the Cloud
+# Exercise 3 - Remote connection via the Cloud
 
 A router deployed in a Cloud with a public IP address can be used as a relay between 2 rmw_zenoh systems.
 
-<p align="center"><img src="pictures/cloud-connectivity.png"  height="250"/></p>
+<p align="center"><img src="pictures/cloud-connectivity.png"  height="350"/></p>
 
 
 ### Configuration
