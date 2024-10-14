@@ -33,7 +33,7 @@ You can also switch the talker/listener roles of the containers (e.g., container
 
 ## Bonus - Inter-Connecting Multiple Routers
 Try connecting to more attendees' containers by adding additional entries to the `connect.endpoints` list. In each container, you can run:
-* Publish your own message: `ros2 topic pub --once /chatter std_msgs/msg/String "data: Hello from <YOUR_NAME>"`
+* Publish your own message: `ros2 topic pub /chatter std_msgs/msg/String "data: Hello from <YOUR_NAME>"`
 * Echo messages: `ros2 topic echo /chatter`
 
 Experiment with different connection topologies, such as forming a chain of connected routers:
