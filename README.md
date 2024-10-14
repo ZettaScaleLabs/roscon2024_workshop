@@ -71,3 +71,5 @@ The docker directory contains several scripts to help manage the container:
 ### [Exercise 3 - Remote connection via the Cloud](exercises/ex-3.md)
 
 ### [Exercise 4 - Direct Node connection](exercises/ex-4.md)
+
+### [Exercise 5 - Discovery via UDP multicast](exercises/ex-5.md)

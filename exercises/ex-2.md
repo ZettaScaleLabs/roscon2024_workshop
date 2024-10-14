@@ -37,7 +37,7 @@ Now, run the following commands in each container:
 
 You can also switch the talker/listener roles of the containers (e.g., container A running the listener and container B running the talker) to verify the bidirectional connection between the routers. Additionally, if you stop one of the routers, communication will pause, and once the router is restarted, communication will resume.
 
-<p align="center"><img src="pictures/talker-listener-2-containers.png"  height="250" alt="talker-listener-2-containers"/></p>
+<p align="center"><img src="pictures/talker-listener-2-containers.png"  height="300" alt="talker-listener-2-containers"/></p>
 
 ## Bonus - Inter-Connecting Multiple Routers
 
