@@ -21,6 +21,7 @@ Welcome! This repository is part of the `Demystifying ROS 2 Networking` workshop
 In this hands-on workshop, you’ll explore how to leverage Zenoh as a ROS 2 middleware (RMW) layer. Whether you're new to Zenoh or looking to deepen your understanding of it, this workshop is designed to give you practical insights through simple demonstrations.
 
 What's Included:
+
 * Dockerized environment: Pre-configured for easy setup and reproducibility.
 * Simple ROS 2 applications: Designed to showcase the use of rmw_zenoh.
 * Scripts and utilities: Simplifying container management, environment setup and configuration files.
@@ -34,11 +35,13 @@ This workshop runs entirely within Docker containers, so you’ll need a host ma
 ### Docker image installation
 
 The easiest way to get the image is by pulling it from Docker Hub:
+
 ```bash
 docker pull zettascaletech/roscon2024_workshop
 ```
 
 Alternatively, you can clone this repository and build the image yourself using the provided `build_image.sh` script. By default, the image will be named roscon2024_workshop, or you can specify a different name by setting the $IMAGE_NAME environment variable.
+
 ```bash
 ./docker/build_image.sh
 ```
@@ -48,10 +51,11 @@ The image includes ROS 2 Jazzy Jalisco (core) with pre-installed demo ROS 2 pack
 ### Using the Docker Container
 
 The docker directory contains several scripts to help manage the container:
+
 * Run [`./docker/create_container.sh`](docker/create_container.sh) to create a container named `roscon2024_workshop`, or use the `$CONTAINER_NAME` environment variable to specify a custom name. The container will use the host network (`--net host`). Important directories in the container include:
-  - `/ros_ws`: The ROS workspace
-  - `/ros_ws/src/rmw_zenoh`: The `rmw_zenoh` source code (already built and installed in the workspace)
-  - `/ros_ws/zenoh_confs`: A volume mapped to the `zenoh_confs/` directory in this repository
+  * `/ros_ws`: The ROS workspace
+  * `/ros_ws/src/rmw_zenoh`: The `rmw_zenoh` source code (already built and installed in the workspace)
+  * `/ros_ws/zenoh_confs`: A volume mapped to the `zenoh_confs/` directory in this repository
 * Run [`./docker/login_container.sh`](docker/login_container.sh) to start a bash shell inside the container
 * Run [`./docker/restart_container.sh`](docker/restart_container.sh) to restart the container
 * Run [`./docker/stop_container.sh`](docker/stop_container.sh) to stop the container
