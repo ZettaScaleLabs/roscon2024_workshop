@@ -1,0 +1,20 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.41.0
+    hooks:
+    - id: markdownlint
+
+  - repo: local
+    hooks:
+      - id: shellcheck
+        name: Run Shellcheck
+        entry: bash -c 'find . -name "*.sh" -print0 | xargs -0 shellcheck'
+        language: system
+        types: [shell]
