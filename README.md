@@ -87,3 +87,5 @@ However, you can refresh and re-build rmw_zenoh from sources running the followi
 ### [Exercise 3 - Remote connection via the Cloud](exercises/ex-3.md)
 
 ### [Exercise 4 - Direct Node connection](exercises/ex-4.md)
+
+### [Exercise 5 - Discovery via UDP multicast](exercises/ex-5.md)

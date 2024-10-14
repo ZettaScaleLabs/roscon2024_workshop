@@ -39,7 +39,7 @@ Now you can run the following commands in your respective containers:
 You can switch the containers running `talker` and `listener`, meaning the interconnection between the routers is well bi-directional.  
 You can also check that if you kill a router the communication stops. If your restart it, the communication resumes.
 
-<p align="center"><img src="pictures/talker-listener-2-containers.png"  height="250"/></p>
+<p align="center"><img src="pictures/talker-listener-2-containers.png"  height="300"/></p>
 
 
 ### Bonus - multiple routers inter-connections
