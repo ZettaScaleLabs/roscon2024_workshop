@@ -56,8 +56,13 @@ FROM ros_base
 COPY --from=build /ros_ws/src /ros_ws/src
 COPY --from=build /ros_ws/install /ros_ws/install
 
-RUN echo "source /ros_ws/install/setup.bash" >> /root/.bashrc && \
-    echo "export RMW_IMPLEMENTATION=rmw_zenoh_cpp" >> /root/.bashrc
+RUN cat <<EOF >> /root/.bashrc
+source /ros_ws/install/setup.bash
+export RMW_IMPLEMENTATION=rmw_zenoh_cpp
+export RUST_LOG=info
+export RCUTILS_CONSOLE_OUTPUT_FORMAT="[{severity} {time}] [{name}]: {message} ({function_name}() at {file_name}:{line_number})"
+export RCUTILS_COLORIZED_OUTPUT=1
+EOF
 
 EXPOSE 7447/tcp
 EXPOSE 7447/udp
