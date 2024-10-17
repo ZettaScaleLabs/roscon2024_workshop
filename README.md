@@ -21,64 +21,64 @@ Welcome! This repository is part of the `Demystifying ROS 2 Networking` workshop
 In this hands-on workshop, you’ll explore how to leverage Zenoh as a ROS 2 middleware (RMW) layer. Whether you're new to Zenoh or looking to deepen your understanding of it, this workshop is designed to give you practical insights through simple demonstrations.
 
 What's Included:
+
 * Dockerized environment: Pre-configured for easy setup and reproducibility.
 * Simple ROS 2 applications: Designed to showcase the use of rmw_zenoh.
-* Scripts and utilities: Simplifying container management and environment setup.
+* Scripts and utilities: Simplifying container management, environment setup and configuration files.
 
 Get ready to dive into the exciting world of ROS 2 networking with Zenoh!
 
-## Environment
+## Setup
 
-All the workshop is using Docker containers, so you need a host running Docker. `amd64` or `arm64` architectures are both supported.
+This workshop runs entirely within Docker containers, so you’ll need a host machine with Docker installed. Both `amd64` and `arm64` architectures are supported.
 
 ### Docker image installation
 
-The simplest is to pull it from Docker hub:
+The easiest way to get the image is by pulling it from Docker Hub:
+
 ```bash
 docker pull zettascaletech/roscon2024_workshop
 ```
 
-You can also build it yourself running the provided `build_image.sh` script:
+Alternatively, you can clone this repository and build the image yourself using the provided `build_image.sh` script. By default, the image will be named roscon2024_workshop, or you can specify a different name by setting the $IMAGE_NAME environment variable.
+
 ```bash
 ./docker/build_image.sh
 ```
-The image will be named `roscon2024_workshop` or with the `$IMAGE_NAME` environment variable if defined.
 
-The image have ROS 2 Jazzy Jalisco (core) installed with the demo ROS 2 packages already available. It also has a workspace under `/ros_ws` with `rmw_zenoh` already built and installed from sources. Both Jazzy and workspace environments are automatically loaded at `bash` startup (see `/root/.bashrc` file).
+The image includes ROS 2 Jazzy Jalisco (core) with pre-installed demo ROS 2 packages. It also has a workspace at `/ros_ws` where `rmw_zenoh` is already built and installed from source. Both the ROS 2 Jazzy environment and the workspace will be automatically set up when you start a bash session (see the `/root/.bashrc` file for details).
 
-### Docker container usage
+### Using the Docker Container
 
-Some scripts are available under `docker` directory to help you with container management:
-- Run [`./docker/create_container.sh`](docker/create_container.sh) to create a new container named `roscon2024_workshop` or with the `$CONTAINER_NAME` environment variable if defined.
-  The container uses the host network (option `--net host`).  
-  Some important directories in this container:
-  - `/ros_ws`: the ROS workspace
-  - `/ros_ws/src/rmw_zenoh`: `rmw_zenoh` sources (it's already built and installed in the workspace)
-  - `/ros_ws/zenoh_confs`: a volume corresponding to the `zenoh_confs/` directory in this reporitory
+The docker directory contains several scripts to help manage the container:
 
-- Run [`./docker/login_container.sh`](docker/login_container.sh) to start a bash shell within the container
-- Run [`./docker/restart_container.sh`](docker/restart_container.sh) to restart the container
-- Run [`./docker/stop_container.sh`](docker/stop_container.sh) to stop the container
-- Run [`./docker/rm_container.sh`](docker/rm_container.sh) to delete the container
-- Run [`./docker/rm_image.sh`](docker/rm_image.sh) to delete the image
-
----
+* Run [`./docker/create_container.sh`](docker/create_container.sh) to create a container named `roscon2024_workshop`, or use the `$CONTAINER_NAME` environment variable to specify a custom name. The container will use the host network (`--net host`). Important directories in the container include:
+  * `/ros_ws`: The ROS workspace
+  * `/ros_ws/src/rmw_zenoh`: The `rmw_zenoh` source code (already built and installed in the workspace)
+  * `/ros_ws/zenoh_confs`: A volume mapped to the `zenoh_confs/` directory in this repository
+* Run [`./docker/login_container.sh`](docker/login_container.sh) to start a bash shell inside the container
+* Run [`./docker/restart_container.sh`](docker/restart_container.sh) to restart the container
+* Run [`./docker/stop_container.sh`](docker/stop_container.sh) to stop the container
+* Run [`./docker/rm_container.sh`](docker/rm_container.sh) to delete the container
+* Run [`./docker/rm_image.sh`](docker/rm_image.sh) to delete the Docker image
 
 ## Exercises
 
 ### Exercise 0 - Pull and build rmw_zenoh
-<details>
-<summary>This step is optional...</summary>
 
-...since rmw_zenoh sources are already pulled from a recent version in `/ros_ws/src/rmw_zenoh` and build and installed.
+ <details>
+ <summary>This step is optional...</summary>
 
-However, you can refresh and re-build rmw_zenoh from sources running the following commands:
-- `cd /ros_ws/src/rmw_zenoh`
-- `git pull`
-- `cd /ros_ws`
-- `colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release`
+ ...since rmw_zenoh sources are already pulled from a recent version in `/ros_ws/src/rmw_zenoh` and build and installed.
 
-</details>
+ However, you can refresh and re-build rmw_zenoh from sources running the following commands:
+
+ 1. `cd /ros_ws/src/rmw_zenoh`
+ 2. `git pull`
+ 3. `cd /ros_ws`
+ 4. `colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release`
+
+ </details>
 
 ### [Exercise 1 - Zenoh router and ROS Nodes](exercises/ex-1.md)
 

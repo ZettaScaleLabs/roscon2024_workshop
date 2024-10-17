@@ -1,42 +1,45 @@
 # Exercise 1 - Zenoh router and ROS Nodes
 
-The first role of the Zenoh router in ROS 2 is to act as a discovery service for the ROS Nodes running on the same host.  
-Each Node automatically tries to connect to the local router at startup, waiting for it if connection fails. The router forwards the locators (IP+port) of each Nodes to other Nodes, so they automatically establish peer-to-peer connection with each other. Once interconnected, 2 Nodes no longer need the router to communicate with each other.
+The primary role of the Zenoh router is to act as a discovery service for ROS nodes running on the same host.
+When a node starts, it automatically tries to connect to the local Zenoh router. If the connection fails, the node waits until the router becomes available. The router shares the locators (IP + port) of each node with others, allowing them to automatically establish peer-to-peer connections. Once nodes are connected, they no longer need the router to communicate with each other.
 
-### Simple talker/listener test
+## Simple Talker/Listener Test
 
-Within the same container, login with 3 different terminals to experiment with `demo_nodes_cpp`'s `talker` and `listener` running:
-- `ros2 run demo_nodes_cpp talker`: the talker is waiting for the Zenoh router
-- `ros2 run rmw_zenoh_cpp rmw_zenohd`: starts the router - the talker shall now publish
-- `ros2 run demo_nodes_cpp listener`: the listener shall receive messages from the talker
-- CTRL+C on zenoh router: the talker and listener shall continue to exchange messages
+To test this, open three different terminals within the same container (using the `login_container.sh` script under the `docker` directory) and run the `demo_nodes_cpp` package's `talker` and `listener`:
 
-<p align="center"><img src="pictures/talker-listener.png"  height="250"/></p>
+1. Run the talker (it will wait for the Zenoh router): `ros2 run demo_nodes_cpp talker`
+2. Start the Zenoh router (the talker should now begin publishing messages): `ros2 run rmw_zenoh_cpp rmw_zenohd`
+3. Run the listener (it should receive messages from the talker): `ros2 run demo_nodes_cpp listener`
+4. Press `CTRL+C` to stop the Zenoh router. The talker and listener will continue exchanging messages without the router.
 
+<p align="center"><img src="pictures/talker-listener.png"  height="250" alt="talker-listener"/></p>
 
-### Bonus - Service, Action and introspection
+## Bonus - Service, Action and Introspection
 
-You can run a similar test with a Service:
-- `ros2 run demo_nodes_cpp add_two_ints_server`
-- `ros2 run demo_nodes_cpp add_two_ints_client`
+You can also test with a ROS service:
 
-And an Action:
-- `ros2 run action_tutorials_cpp fibonacci_action_server`
-- `ros2 run action_tutorials_cpp fibonacci_action_client`
+* Server: `ros2 run demo_nodes_cpp add_two_ints_server`
+* Client: `ros2 run demo_nodes_cpp add_two_ints_client`
 
-You can also test the `ros2` command-line tool:
-- `ros2 node list`
-- `ros2 topic list`
-- `ros2 service list`
-- `ros2 action list`
+And with an Action:
 
-Note that if the router is stopped, the `ros2` command-line tool keeps working.  
-Why ?
+* Action server: `ros2 run action_tutorials_cpp fibonacci_action_server`
+* Action client: `ros2 run action_tutorials_cpp fibonacci_action_client`
+
+Additionally, you can use the `ros2` command-line tool to inspect the system:
+
+* List nodes: `ros2 node list`
+* List topics: `ros2 topic list`
+* List services: `ros2 service list`
+* List actions: `ros2 action list`
+
+Even if the Zenoh router is stopped, the `ros2` command-line tool will continue to function.
+Why?
 
 <details>
-<summary>Response</summary>
+<summary>Answer</summary>
 
-Because on first run the `ros2` command started the ROS 2 daemon. This is a regular ROS Node, connected in peer-to-peer to the other Nodes. It acts as a cache of the ROS graph and can directly reply to the queries from `ros2` command.
+When you run a `ros2` command for the first time, it starts the ROS 2 daemon, which is a regular ROS node. This node connects peer-to-peer with other nodes, acts as a cache of the ROS graph, and can directly respond to queries from the `ros2` command-line tool.
 
 </details>
 
