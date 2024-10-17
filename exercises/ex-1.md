@@ -38,7 +38,9 @@ Why?
 
 <details>
 <summary>Answer</summary>
+
 When you run a `ros2` command for the first time, it starts the ROS 2 daemon, which is a regular ROS node. This node connects peer-to-peer with other nodes, acts as a cache of the ROS graph, and can directly respond to queries from the `ros2` command-line tool.
+
 </details>
 
 ---

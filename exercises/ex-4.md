@@ -40,15 +40,19 @@ What happens if you stop the router in container A, and why ?
 
 <details>
 <summary>Answer</summary>
+
 The communication between the Talker and the Listener stops!
 The reason is that there was no peer-to-peer connectivity established between the Talker and the Listener, since each one is by default listening for incoming connection only on their respective `localhost` interface. See the `listen.endpoints` configuration in [zenoh_confs/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5](../zenoh_confs/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5).
+
 </details>
 
 How to fix this ?
 
 <details>
 <summary>Answer</summary>
+
 You need to configure the Listener node in container B to listen for incoming connections on all network interfaces, not just `localhost`:
+
 * Edit `zenoh_confs/SESSION_CONFIG.json5` and set `listen.endpoints` configuration as follows:
 
 ```json5

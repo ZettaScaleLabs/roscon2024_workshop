@@ -32,7 +32,9 @@ What happens, and why?
 
 <details>
 <summary>Answer</summary>
+
 Zenoh has no concept of Domain such as DDS. However, `rmw_zenoh` integrates the `ROS_DOMAIN_ID` in the mapping from topic/service names to zenoh key expressions. As a result, even if nodes use the same topic name, they won’t communicate if they are in different domains, even when connected through Zenoh.
+
 </details>
 
 ---

@@ -64,6 +64,22 @@ The docker directory contains several scripts to help manage the container:
 
 ## Exercises
 
+### Exercise 0 - Pull and build rmw_zenoh
+
+ <details>
+ <summary>This step is optional...</summary>
+
+ ...since rmw_zenoh sources are already pulled from a recent version in `/ros_ws/src/rmw_zenoh` and build and installed.
+
+ However, you can refresh and re-build rmw_zenoh from sources running the following commands:
+
+ 1. `cd /ros_ws/src/rmw_zenoh`
+ 2. `git pull`
+ 3. `cd /ros_ws`
+ 4. `colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release`
+
+ </details>
+
 ### [Exercise 1 - Zenoh router and ROS Nodes](exercises/ex-1.md)
 
 ### [Exercise 2 - Routers connections](exercises/ex-2.md)
