@@ -89,3 +89,5 @@ The docker directory contains several scripts to help manage the container:
 ### [Exercise 4 - Direct Node connection](exercises/ex-4.md)
 
 ### [Exercise 5 - Discovery via UDP multicast](exercises/ex-5.md)
+
+### [Exercise 6 - Access Control](exercises/ex-6.md)
