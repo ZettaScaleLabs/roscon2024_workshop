@@ -14,13 +14,13 @@ Partner with another attendee and decide who will connect their container (A) to
 1. Copy the file `zenoh_confs/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5` and rename it to `zenoh_confs/ROUTER_CONFIG.json5`
 2. Edit `zenoh_confs/ROUTER_CONFIG.json5` and set the `connect.endpoints` configuration as follows (Replace <host_B_IP> with the IP address of the host running container B):
 
-```json5
-connect: {
-  endpoints: [
-    "tcp/<host_B_IP>:7447"
-  ],
-},
-```
+    ```json5
+    connect: {
+      endpoints: [
+          "tcp/<host_B_IP>:7447"
+      ],
+    },
+    ```
 
 The attendee with container B has nothing to do. By default the Zenoh router is listening to incoming TCP connections on port 7447 via any network interface.
 
@@ -49,9 +49,9 @@ Try connecting to more attendees' containers by adding additional entries to the
 Experiment with different connection topologies, such as forming a chain of connected routers:
 <p align="center"><img src="pictures/talker-listener-3-containers.png"  height="250" alt="talker-listener-3-containers"/></p>
 
-## Note -Starting Another Container on the Same Host
+## Note - Starting Another Container on the Same Host
 
-To run another container using `rmw_zenoh` on the same host, set the `CONTAINER_NAME` environment variable to a different name (in all terminals):
+If you want to run another container using `rmw_zenoh` on the same host, set the `CONTAINER_NAME` environment variable to a different name (in all terminals):
 
 ```bash
 export CONTAINER_NAME="container_2"
@@ -64,26 +64,26 @@ Since both containers will use the host network, their routers will conflict on 
 * Copy `zenoh_confs/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5` to `zenoh_confs/CONTAINER_2_ROUTER_CONFIG.json5`
 * Edit `zenoh_confs/CONTAINER_2_ROUTER_CONFIG.json5` and set the `listen.endpoints` configuration as follows:
 
-```json5
-listen: {
-  endpoints: [
-    "tcp/[::]:7448"
-  ],
-},
-```
+    ```json5
+    listen: {
+      endpoints: [
+          "tcp/[::]:7448"
+      ],
+    },
+    ```
 
 In the same file you can configure the connections to other routers in `connect.endpoints` as explained above.
 
 * Copy `zenoh_confs/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5` to `zenoh_confs/CONTAINER_2_SESSION_CONFIG.json5`
 * Edit `zenoh_confs/CONTAINER_2_ROUTER_CONFIG.json5` and set the `connect.endpoints` configuration as follows:
 
-```json5
-connect: {
-  endpoints: [
-    "tcp/localhost:7448"
-  ],
-},
-```
+    ```json5
+    connect: {
+      endpoints: [
+          "tcp/localhost:7448"
+      ],
+    },
+    ```
 
 This ensures that each node connects to the Zenoh router on port 7448.
 

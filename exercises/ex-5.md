@@ -13,7 +13,7 @@ Even if not enabled by default in `rmw_zenoh`, Zenoh can be configured for disco
 Each attendee will run 1 container with the Zenoh router and a publisher and a subscriber on the same topic.
 The routers will be configured to discover each other over UDP multicast and to automatically connect to each other.
 
-<p align="center"><img src="pictures/multicast-discovery-routers.png"  height="350" alt="multicast-discovery-routers"/>/></p>
+<p align="center"><img src="pictures/multicast-discovery-routers.png"  height="400" alt="multicast-discovery-routers"/>/></p>
 
 ### Configuration
 

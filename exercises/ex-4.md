@@ -14,13 +14,13 @@ The attendee with container B needs to create a configuration file for the Liste
 1. Copy `zenoh_confs/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5` to `zenoh_confs/SESSION_CONFIG.json5`
 2. Edit `zenoh_confs/SESSION_CONFIG.json5` and set a `connect.endpoints` configuration as follows (Replace `<host_A_IP>` with the IP address of the host running container A):
 
-```json5
-connect: {
-  endpoints: [
-    "tcp/<host_A_IP>:7447"
-  ],
-},
-```
+    ```json5
+    connect: {
+      endpoints: [
+        "tcp/<host_A_IP>:7447"
+      ],
+    },
+    ```
 
 The attendee with container A has nothing to do. By default the Zenoh router is listening to incoming TCP connections on port 7447 via any network interface.
 
@@ -55,13 +55,13 @@ You need to configure the Listener node in container B to listen for incoming co
 
 * Edit `zenoh_confs/SESSION_CONFIG.json5` and set `listen.endpoints` configuration as follows:
 
-```json5
-connect: {
-  endpoints: [
-    "tcp/[::]:0"
-  ],
-},
-```
+    ```json5
+    connect: {
+      endpoints: [
+        "tcp/[::]:0"
+      ],
+    },
+    ```
 
 The Zenoh gossip protocol will do the rest: forwarding the Listener endpoint to the Talker, and the Talker will automatically connect to the Listener.
 

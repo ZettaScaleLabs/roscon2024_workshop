@@ -2,7 +2,7 @@
 
 A Zenoh router deployed in the Cloud with a public IP can act as a relay between two `rmw_zenoh` systems.
 
-<p align="center"><img src="pictures/cloud-connectivity.png"  height="350" alt="cloud-connectivity"/></p>
+<p align="center"><img src="pictures/cloud-connectivity.png"  height="400" alt="cloud-connectivity"/></p>
 
 ## Configuration
 
