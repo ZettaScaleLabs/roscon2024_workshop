@@ -22,6 +22,7 @@ In this hands-on workshop, you’ll explore how to leverage Zenoh as a ROS 2 mid
 
 What's Included:
 
+* Some [introduction slides](Introduction_slides.pdf) showing an overview of both Zenoh and `rmw_zenoh`.
 * Dockerized environment: Pre-configured for easy setup and reproducibility.
 * Simple ROS 2 applications: Designed to showcase the use of rmw_zenoh.
 * Scripts and utilities: Simplifying container management, environment setup and configuration files.
