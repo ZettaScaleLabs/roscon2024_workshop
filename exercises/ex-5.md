@@ -44,7 +44,7 @@ Edit your `zenoh_confs/ROUTER_CONFIG.json5` again to:
       autoconnect: { router: "router" },
       /// Whether or not to listen for scout messages on UDP multicast and reply to them.
       listen: true,
-   }
+   },
   ```
 
 ### Run
