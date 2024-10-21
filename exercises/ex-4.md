@@ -32,7 +32,7 @@ Now, run the following commands in each container:
   * Start the router: `ros2 run rmw_zenoh_cpp rmw_zenohd`
   * Start the talker: `ros2 run demo_nodes_cpp talker`
 * In container B:
-  * Start the listerner: `ros2 run demo_nodes_cpp listener`
+  * Start the listerner: `ZENOH_SESSION_CONFIG_URI=/ros_ws/zenoh_confs/SESSION_CONFIG.json5 ros2 run demo_nodes_cpp listener`
 
 ## Bonus
 
