@@ -24,7 +24,7 @@ on:
         type: boolean
         description: Also tag as "latest"
         required: true
-        default: true
+        default: false
 
 jobs:
   docker-build-amd64:
@@ -42,8 +42,8 @@ jobs:
       - name: Build and push AMD64 image
         run: |
           set -xe
-          docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-dev/1.0.0-amd64:${{ inputs.tag }} --no-cache --platform linux/amd64
-          docker push zettascaletech/roscon2024_workshop-dev/1.0.0-amd64:${{ inputs.tag }}
+          docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-amd64:${{ inputs.tag }} --no-cache --platform linux/amd64
+          docker push zettascaletech/roscon2024_workshop-amd64:${{ inputs.tag }}
 
   docker-build-arm64:
     name: Docker ARM64 build and push
@@ -60,8 +60,8 @@ jobs:
       - name: Build and push ARM64 image
         run: |
           set -xe
-          docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-dev/1.0.0-arm64:${{ inputs.tag }} --no-cache --platform linux/arm64/v8
-          docker push zettascaletech/roscon2024_workshop-dev/1.0.0-arm64:${{ inputs.tag }}
+          docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-arm64:${{ inputs.tag }} --no-cache --platform linux/arm64/v8
+          docker push zettascaletech/roscon2024_workshop-arm64:${{ inputs.tag }}
 
   docker-build-manifest:
     name: Docker manifest build and push
@@ -77,22 +77,22 @@ jobs:
       - name: Pull the latest images for both architectures
         run: |
           set -xe
-          docker pull zettascaletech/roscon2024_workshop-dev/1.0.0-amd64:${{ inputs.tag }}
-          docker pull zettascaletech/roscon2024_workshop-dev/1.0.0-arm64:${{ inputs.tag }}
+          docker pull zettascaletech/roscon2024_workshop-amd64:${{ inputs.tag }}
+          docker pull zettascaletech/roscon2024_workshop-arm64:${{ inputs.tag }}
 
       - name: Create and push Docker manifest
         run: |
           set -xe
-          docker manifest create --amend zettascaletech/roscon2024_workshop-dev/1.0.0:${{ inputs.tag }} \
-            zettascaletech/roscon2024_workshop-dev/1.0.0-amd64:${{ inputs.tag }} \
-            zettascaletech/roscon2024_workshop-dev/1.0.0-arm64:${{ inputs.tag }}
-          docker manifest push zettascaletech/roscon2024_workshop-dev/1.0.0:${{ inputs.tag }}
+          docker manifest create --amend zettascaletech/roscon2024_workshop:${{ inputs.tag }} \
+            zettascaletech/roscon2024_workshop-amd64:${{ inputs.tag }} \
+            zettascaletech/roscon2024_workshop-arm64:${{ inputs.tag }}
+          docker manifest push zettascaletech/roscon2024_workshop:${{ inputs.tag }}
 
       - name: Tag and push as latest
         if: ${{ inputs.latest }}
         run: |
           set -xe
-          docker manifest create --amend zettascaletech/roscon2024_workshop-dev/1.0.0:latest \
-            zettascaletech/roscon2024_workshop-dev/1.0.0-amd64:${{ inputs.tag }} \
-            zettascaletech/roscon2024_workshop-dev/1.0.0-arm64:${{ inputs.tag }}
-          docker manifest push zettascaletech/roscon2024_workshop-dev/1.0.0:latest
+          docker manifest create --amend zettascaletech/roscon2024_workshop:latest \
+            zettascaletech/roscon2024_workshop-amd64:${{ inputs.tag }} \
+            zettascaletech/roscon2024_workshop-arm64:${{ inputs.tag }}
+          docker manifest push zettascaletech/roscon2024_workshop:latest
