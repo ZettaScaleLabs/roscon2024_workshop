@@ -7,10 +7,15 @@ When a node starts, it automatically tries to connect to the local Zenoh router.
 
 To test this, open three different terminals within the same container (using the `login_container.sh` script under the `docker` directory) and run the `demo_nodes_cpp` package's `talker` and `listener`:
 
-1. Run the talker (it will wait for the Zenoh router): `ros2 run demo_nodes_cpp talker`
+1. Run the talker (it will print a warning about waiting for the Zenoh router): `ros2 run demo_nodes_cpp talker`
 2. Start the Zenoh router (the talker should now begin publishing messages): `ros2 run rmw_zenoh_cpp rmw_zenohd`
 3. Run the listener (it should receive messages from the talker): `ros2 run demo_nodes_cpp listener`
 4. Press `CTRL+C` to stop the Zenoh router. The talker and listener will continue exchanging messages without the router.
+
+> [!WARNING]
+> By default a Node will check if a Zenoh router is available at startup once. To make the Node skip this Zenoh router check or attempt its discovery more than once define the following environment variable for each of your Node accordingly:
+> `ZENOH_ROUTER_CHECK_ATTEMPTS=-1` # For skipping check
+> `ZENOH_ROUTER_CHECK_ATTEMPTS=0` # For checking maximum value of attempts
 
 <p align="center"><img src="pictures/talker-listener.png"  height="250" alt="talker-listener"/></p>
 

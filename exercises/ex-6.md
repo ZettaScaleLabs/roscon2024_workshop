@@ -30,20 +30,36 @@ Then in container A:
       enabled: true,
       default_permission: "allow",   // allow all by default
       /// List of rules
-      rules:
-      [
+      rules: [
         {
+          // Rule identifier
+          id: "my_rule",
           // Deny publications ("put" Zenoh operation) in egress on WiFi interface for a Zenoh key expression
           permission: "deny",
-          actions: [ "put" ],
+          messages: [ "put" ],
           flows:["egress"],
-          interfaces: ["<YOUR_WIFI_INTERFACE>"]
           key_exprs: [
             // The Zenoh key expression used for the "/chatter" topic
-            "0/chatter/std_msgs::msg::dds_::String_/RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18"
+            //"0/chatter/std_msgs::msg::dds_::String_/RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18"
+            "*/chatter/**"
           ],
         },
-    ]
+      ],
+      /// list of subjects:
+      subjects: [
+        {
+          // Interface identifier
+          id: "my_interface",
+          interfaces: ["<YOUR_WIFI_INTERFACE>"],
+        },
+      ],
+      /// apply rule to subject in the policies list
+      policies: [
+        {
+          rules: ["my_rule"],
+          subjects: ["my_interface"],
+        },
+      ],
     },
     ```
 
@@ -89,8 +105,7 @@ Now, run the following commands in each container:
 > [!NOTE]
 > **Isn't it a simpler way to specify the key expression ?**
 >
-> Not in current version.
-> But with incoming version based on Zenoh 1.0.0 the wildcard characters will be allowed. The key expression could then be simplified to `*/chatter/**`.
+> In rmw_zenoh based on Zenoh 1.0.0 wildcard characters are allowed. The key expression could then be simplified to `*/chatter/**`.
 > Where `*` matches 1 chunk (between `/`) and `**` matches multiple chunks
 
 ---
@@ -98,8 +113,7 @@ Now, run the following commands in each container:
 > [!NOTE]
 > **How can I find the key expression for my topic ?**
 >
-> Not in current version.
-> But with incoming version based on Zenoh 1.0.0 the wildcard characters will be allowed. The key expression could then be simplified to `*/chatter/**`.
+> In rmw_zenoh based on Zenoh 1.0.0 the wildcard characters are allowed. The key expression could then be simplified to `*/chatter/**`.
 > Where `*` matches 1 chunk (between `/`) and `**` matches multiple chunks
 
 ---
