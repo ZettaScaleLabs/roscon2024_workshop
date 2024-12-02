@@ -12,7 +12,7 @@
 #
 
 ARG ROS_DISTRO=jazzy
-ARG RMW_ZENOH_BRANCH=dev/1.0.0-revert-not-shutdown-contained-entities
+ARG RMW_ZENOH_BRANCH=wip/session-clone
 
 ARG BASE_IMAGE=ros:${ROS_DISTRO}-ros-core
 
