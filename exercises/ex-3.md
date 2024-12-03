@@ -1,8 +1,5 @@
 # Exercise 3 - Remote Connection via the Cloud
 
-> [!WARNING]
-  Currently not available in rmw_zenoh dev/1.0.0 as the router deployed in roscon.zenoh.io is using Zenoh 0.11.0
-
 A Zenoh router deployed in the Cloud with a public IP can act as a relay between two `rmw_zenoh` systems.
 
 <p align="center"><img src="pictures/cloud-connectivity.png"  height="400" alt="cloud-connectivity"/></p>
@@ -15,7 +12,7 @@ Update your `zenoh_confs/ROUTER_CONFIG.json5` to include the following in the `c
 ```json5
   connect: {
     endpoints: [
-      "tcp/roscon.zenoh.io:7447"
+      "tcp/roscon.zenoh.io:7448"
     ],
   },
 ```
