@@ -12,7 +12,7 @@ Update your `zenoh_confs/ROUTER_CONFIG.json5` to include the following in the `c
 ```json5
   connect: {
     endpoints: [
-      "tcp/roscon.zenoh.io:7447"
+      "tcp/roscon.zenoh.io:7448"
     ],
   },
 ```

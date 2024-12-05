@@ -57,14 +57,10 @@ Now you can run the following commands in your container:
 
 ### Bonus
 
-Run `rmw_zenoh` Nodes without any router in 2 different configurations:
+Try running `rmw_zenoh` Nodes without any router in 2 different configurations:
 
 1. the Nodes shall only discover the other Nodes running on the same host
 2. the Nodes shall discover all Nodes running in the LAN
-
-> [!WARNING]
-> By default the Node will wait to discover a Zenoh router at startup. To make the Node to skip this Zenoh router check, define this environment variable for each of your Node:
-> `ZENOH_ROUTER_CHECK_ATTEMPTS=-1`
 
 <details>
 <summary>Solution 1</summary>
