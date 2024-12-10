@@ -24,7 +24,7 @@ on:
         type: boolean
         description: Also tag as "latest"
         required: true
-        default: false
+        default: true
 
 jobs:
   docker-build-amd64:

@@ -22,5 +22,5 @@ else
         --net host \
         -v "$BASE_DIR/zenoh_confs:/ros_ws/zenoh_confs" \
         -e DISPLAY=host.docker.internal:0 \
-        "$IMAGE":dev-1.0.0
+        "$IMAGE"
 fi
