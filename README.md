@@ -38,7 +38,7 @@ This workshop runs entirely within Docker containers, so you’ll need a host ma
 The easiest way to get the image is by pulling it from Docker Hub:
 
 ```bash
-docker pull zettascaletech/roscon2024_workshop:latest
+docker pull zettascaletech/roscon2024_workshop
 ```
 
 Alternatively, you can clone this repository and build the image yourself using the provided `build_image.sh` script. By default, the image will be named roscon2024_workshop, or you can specify a different name by setting the $IMAGE_NAME environment variable.
