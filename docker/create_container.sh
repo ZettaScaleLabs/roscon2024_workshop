@@ -5,6 +5,9 @@ IMAGE=${IMAGE:-zettascaletech/roscon2024_workshop}
 # Docker container name
 CONTAINER_NAME=${CONTAINER_NAME:-roscon2024_workshop}
 
+# Zenoh exposed port
+EXPOSED_PORT=${EXPOSED_PORT:-7447}
+
 # Get absolute path to base directory (roscon2024_workshop/ dir)
 BASE_DIR=$(cd "$(dirname "$0")/.." && pwd)
 
@@ -23,8 +26,8 @@ else
             --name "$CONTAINER_NAME" \
             -v "$BASE_DIR/zenoh_confs:/ros_ws/zenoh_confs" \
             -e DISPLAY=host.docker.internal:0 \
-            -p 7447:7447/tcp \
-            -p 7447:7447/udp \
+            -p $EXPOSED_PORT:$EXPOSED_PORT/tcp \
+            -p $EXPOSED_PORT:$EXPOSED_PORT/udp \
             "$IMAGE"
     else
          docker run -it --init -d \
