@@ -17,10 +17,21 @@ else
     #  - the display redirection to the host's display
     #  - the use of host networking
     #  - a volume mounting host's roscon2024_workshop/zenoh_confs/ to /ros_ws/zenoh_confs
-    docker run -it --init -d \
-        --name "$CONTAINER_NAME" \
-        --net host \
-        -v "$BASE_DIR/zenoh_confs:/ros_ws/zenoh_confs" \
-        -e DISPLAY=host.docker.internal:0 \
-        "$IMAGE"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # Mac OSX
+        docker run -it --init -d \
+            --name "$CONTAINER_NAME" \
+            -v "$BASE_DIR/zenoh_confs:/ros_ws/zenoh_confs" \
+            -e DISPLAY=host.docker.internal:0 \
+            -p 7447:7447/tcp \
+            -p 7447:7447/udp \
+            "$IMAGE"
+    else
+         docker run -it --init -d \
+            --name "$CONTAINER_NAME" \
+            --net host \
+            -v "$BASE_DIR/zenoh_confs:/ros_ws/zenoh_confs" \
+            -e DISPLAY=host.docker.internal:0 \
+            "$IMAGE"
+    fi
 fi
