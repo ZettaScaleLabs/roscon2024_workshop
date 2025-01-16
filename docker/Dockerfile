@@ -12,23 +12,25 @@
 #
 
 ARG ROS_DISTRO=jazzy
-ARG RMW_ZENOH_BRANCH=rolling
+ARG RMW_ZENOH_BRANCH=jazzy
 
 ARG BASE_IMAGE=ros:${ROS_DISTRO}-ros-core
 
 FROM ${BASE_IMAGE} AS ros_base
 
+# Install required packages to build rmw_zenoh, some demos/tutos for the workshop
+# and some usefull tools (vim, ping...)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-${ROS_DISTRO}-ament-cmake-vendor-package \
-    ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
+    cargo \
+    clang \
+    ros-dev-tools \
+    ros-${ROS_DISTRO}-tracetools \
     ros-${ROS_DISTRO}-demo-nodes-cpp \
     ros-${ROS_DISTRO}-demo-nodes-py \
     ros-${ROS_DISTRO}-action-tutorials-cpp \
     ros-${ROS_DISTRO}-action-tutorials-py \
     ros-${ROS_DISTRO}-turtlesim \
-    cargo \
-    clang \
-    ros-dev-tools \
     vim \
     iputils-ping iproute2 && \
     apt-get autoremove -y && \
@@ -55,14 +57,10 @@ FROM ros_base
 
 COPY --from=build /ros_ws/src /ros_ws/src
 COPY --from=build /ros_ws/install /ros_ws/install
+COPY rmw_zenoh_env.bash /
 
-RUN cat <<EOF >> /root/.bashrc
-source /ros_ws/install/setup.bash
-export RMW_IMPLEMENTATION=rmw_zenoh_cpp
-export RUST_LOG=info
-export RCUTILS_CONSOLE_OUTPUT_FORMAT="[{severity} {time}] [{name}]: {message} ({function_name}() at {file_name}:{line_number})"
-export RCUTILS_COLORIZED_OUTPUT=1
-EOF
+# Make /root/.bashrc to load /rmw_zenoh_env.bash for `docker exec` commands to have proper env
+RUN echo 'source /rmw_zenoh_env.bash' >> /root/.bashrc
 
 EXPOSE 7447/tcp
 EXPOSE 7447/udp
