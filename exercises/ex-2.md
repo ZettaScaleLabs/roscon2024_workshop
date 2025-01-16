@@ -53,8 +53,13 @@ Experiment with different connection topologies, such as forming a chain of conn
 
 If you want to run another container using `rmw_zenoh` on the same host, set the `CONTAINER_NAME` environment variable to a different name (in all terminals):
 
+> [!WARNING]
+> If your host runs **MacOS**, you need also to set the `EXPOSED_PORT` environment variable to a different port number (in all terminals):
+
+
 ```bash
 export CONTAINER_NAME="container_2"
+export EXPOSED_PORT="7448" # for macOS users only
 ./docker/create_container.sh
 ./docker/login_container.sh
 ```
