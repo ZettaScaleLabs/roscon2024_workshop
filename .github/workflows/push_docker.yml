@@ -42,7 +42,7 @@ jobs:
       - name: Build and push AMD64 image
         run: |
           set -xe
-          docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-amd64:${{ inputs.tag }} --no-cache --platform linux/amd64
+          docker build docker -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-amd64:${{ inputs.tag }} --no-cache --platform linux/amd64
           docker push zettascaletech/roscon2024_workshop-amd64:${{ inputs.tag }}
 
   docker-build-arm64:
@@ -60,7 +60,7 @@ jobs:
       - name: Build and push ARM64 image
         run: |
           set -xe
-          docker build . -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-arm64:${{ inputs.tag }} --no-cache --platform linux/arm64/v8
+          docker build docker -f docker/Dockerfile -t zettascaletech/roscon2024_workshop-arm64:${{ inputs.tag }} --no-cache --platform linux/arm64/v8
           docker push zettascaletech/roscon2024_workshop-arm64:${{ inputs.tag }}
 
   docker-build-manifest:
