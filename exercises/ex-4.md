@@ -12,7 +12,15 @@ Partner with another attendee and decide who will connect their container (A) to
 The attendee with container B needs to create a configuration file for the Listener Node to connect to the router in container A:
 
 1. Copy `zenoh_confs/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5` to `zenoh_confs/SESSION_CONFIG.json5`
-2. Edit `zenoh_confs/SESSION_CONFIG.json5` and set a `connect.endpoints` configuration as follows (Replace `<host_A_IP>` with the IP address of the host running container A):
+2. Edit `zenoh_confs/SESSION_CONFIG.json5` as such:
+
+   - Change the `mode` from `"peer"` to `"client"` as such:
+
+     ```json5
+     mode: "client",
+     ```
+
+   - And the set a `connect.endpoints` configuration as follows (Replace `<host_A_IP>` with the IP address of the host running container A):
 
     ```json5
     connect: {
@@ -24,15 +32,28 @@ The attendee with container B needs to create a configuration file for the Liste
 
 The attendee with container A has nothing to do. By default the Zenoh router is listening to incoming TCP connections on port 7447 via any network interface.
 
+> [!NOTE]
+> The reason to change the Listener mode to client is that with by default for ROS 2 the router is configured with
+> `routing.router.peers_failover_brokering: false`, meaning the router will consider that each peer directly connected to him
+> are also able to establish peer-to-peer connection. Thus it will not route data between the peers.
+>
+> But that's not the case here, the peers cannot establish direct connection with each other because they are listening on `localhost` only!
+> Configuring the Listener in `client` mode forces the router to route data to him, as a `client` maintains only 1 connection
+> (the one to the router).
+>
+> Another solution could be to set `routing.router.peers_failover_brokering: true` for the router, keeping Listener's mode as `peer`.
+> The drawback would be additional management overhead for the router and extra messages during system startup which could penalize
+> a large system with a lot of Nodes.
+
 ## Run
 
 Now, run the following commands in each container:
 
-* In container A:
-  * Start the router: `ros2 run rmw_zenoh_cpp rmw_zenohd`
-  * Start the talker: `ros2 run demo_nodes_cpp talker`
-* In container B:
-  * Start the listener: `ZENOH_SESSION_CONFIG_URI=/ros_ws/zenoh_confs/SESSION_CONFIG.json5 ros2 run demo_nodes_cpp listener`
+- In container A:
+  - Start the router: `ros2 run rmw_zenoh_cpp rmw_zenohd`
+  - Start the talker: `ros2 run demo_nodes_cpp talker`
+- In container B:
+  - Start the listener: `ZENOH_SESSION_CONFIG_URI=/ros_ws/zenoh_confs/SESSION_CONFIG.json5 ros2 run demo_nodes_cpp listener`
 
 ## Bonus
 
@@ -53,7 +74,7 @@ How to fix this ?
 
 You need to configure the Listener node in container B to listen for incoming connections on all network interfaces, not just `localhost`:
 
-* Edit `zenoh_confs/SESSION_CONFIG.json5` and set `listen.endpoints` configuration as follows:
+- Edit `zenoh_confs/SESSION_CONFIG.json5` and set `listen.endpoints` configuration as follows:
 
     ```json5
     listen: {
