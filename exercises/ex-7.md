@@ -19,7 +19,7 @@ downsampling: [
     rules: [
       // 0.5Hz for the Zenoh key expression used for the "/chatter_public" topic
       {
-        key_expr: "0/chatter_public/std_msgs::msg::dds_::String_/RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18",
+        key_expr: "*/chatter_public/**",
         freq: 0.5
       },
     ],
