@@ -11,8 +11,8 @@
 #   ZettaScale Zenoh Team, <zenoh@zettascale.tech>
 #
 
-ARG ROS_DISTRO=jazzy
-ARG RMW_ZENOH_BRANCH=jazzy
+ARG ROS_DISTRO=rolling
+ARG RMW_ZENOH_BRANCH=chore/prefix-test
 
 ARG BASE_IMAGE=ros:${ROS_DISTRO}-ros-core
 
@@ -46,7 +46,7 @@ ARG RMW_ZENOH_BRANCH
 
 RUN mkdir -p src && \
     cd src && \
-    git clone https://github.com/ros2/rmw_zenoh.git -b $RMW_ZENOH_BRANCH && \
+    git clone https://github.com/ZettaScaleLabs/rmw_zenoh.git -b $RMW_ZENOH_BRANCH && \
     cd .. && \
     . /opt/ros/${ROS_DISTRO}/setup.sh && \
     rosdep init && rosdep update && \
