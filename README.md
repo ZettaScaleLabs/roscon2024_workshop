@@ -15,7 +15,7 @@
 </div>
 
 > [!NOTE]
-> ***Last Updated: August 2025***
+> ***Last Updated: August 2025***  
 > *This repository has been updated to use the latest version of `rmw_zenoh` (0.2.5 on Jazzy)*
 
 ## About
