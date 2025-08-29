@@ -16,14 +16,13 @@ ARG RMW_ZENOH_BRANCH=jazzy
 
 ARG BASE_IMAGE=ros:${ROS_DISTRO}-ros-core
 
-FROM ${BASE_IMAGE} AS ros_base
+FROM ${BASE_IMAGE}
 
-# Install required packages to build rmw_zenoh, some demos/tutos for the workshop
+# Install rmw_zenoh, some demos/tutos for the workshop
 # and some usefull tools (vim, ping...)
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-${ROS_DISTRO}-rmw-zenoh-cpp \
     ros-${ROS_DISTRO}-ament-cmake-vendor-package \
-    cargo \
-    clang \
     ros-dev-tools \
     ros-${ROS_DISTRO}-tracetools \
     ros-${ROS_DISTRO}-demo-nodes-cpp \
@@ -37,26 +36,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-WORKDIR /ros_ws
-
-FROM ros_base AS build
-
-ARG ROS_DISTRO
-ARG RMW_ZENOH_BRANCH
-
-RUN mkdir -p src && \
-    cd src && \
-    git clone https://github.com/ros2/rmw_zenoh.git -b $RMW_ZENOH_BRANCH && \
-    cd .. && \
-    . /opt/ros/${ROS_DISTRO}/setup.sh && \
-    rosdep init && rosdep update && \
-    rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y && \
-    colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
-
-FROM ros_base
-
-COPY --from=build /ros_ws/src /ros_ws/src
-COPY --from=build /ros_ws/install /ros_ws/install
 COPY rmw_zenoh_env.bash /
 
 # Make /root/.bashrc to load /rmw_zenoh_env.bash for `docker exec` commands to have proper env

@@ -13,14 +13,16 @@ In container A add this `downsampling` configuration at the end of your `zenoh_c
 ```json5
 downsampling: [
   {
-    // Downsampling publications in egress on WiFi interface
+    // Downsampling publications ("push" messages, and "reply" in case of TRANSIENT_LOCAL publisher)
+    // in egress direction on WiFi interface
+    messages: ["push", "reply"],
+    flows: ["egress"],
     interfaces: ["<YOUR_WIFI_INTERFACE>"],
-    flow: "egress",
     rules: [
-      // 0.5Hz for the Zenoh key expression used for the "/chatter_public" topic
+      // 0.6Hz for the Zenoh key expression used for the "/chatter_public" topic
       {
         key_expr: "*/chatter_public/**",
-        freq: 0.5
+        freq: 0.6
       },
     ],
   },
@@ -34,7 +36,7 @@ Run the same commands than for previous exercise:
 * In container A:
   * Start the router (with the custom configuration): `ZENOH_ROUTER_CONFIG_URI=/ros_ws/zenoh_confs/ROUTER_CONFIG.json5 ros2 run rmw_zenoh_cpp rmw_zenohd`
     You can also add this environment variable to see the router applying the access control:
-    `RUST_LOG=info,zenoh::net::routing::interceptor=debug`
+    `RUST_LOG=info,zenoh::net::routing::interceptor=trace`
   * Start the publisher on the denied topic:
     `ros2 topic pub /chatter std_msgs/msg/String "data: Hello just me!"`
   * Start another publisher on an allowed topic:

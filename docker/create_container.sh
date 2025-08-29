@@ -26,8 +26,8 @@ else
             --name "$CONTAINER_NAME" \
             -v "$BASE_DIR/zenoh_confs:/ros_ws/zenoh_confs" \
             -e DISPLAY=host.docker.internal:0 \
-            -p $EXPOSED_PORT:$EXPOSED_PORT/tcp \
-            -p $EXPOSED_PORT:$EXPOSED_PORT/udp \
+            -p "$EXPOSED_PORT:$EXPOSED_PORT/tcp" \
+            -p "$EXPOSED_PORT:$EXPOSED_PORT/udp" \
             "$IMAGE"
     else
          docker run -it --init -d \

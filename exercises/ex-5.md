@@ -41,7 +41,7 @@ Edit your `zenoh_confs/ROUTER_CONFIG.json5` again to:
       /// Which type of Zenoh instances to automatically establish sessions with upon discovery on UDP multicast.
       /// Accepts a single value or different values for router, peer and client.
       /// Each value is bit-or-like combinations of "peer", "router" and "client".
-      autoconnect: { router: "router" },
+      autoconnect: { router: ["router"] },
       /// Whether or not to listen for scout messages on UDP multicast and reply to them.
       listen: true,
    },
@@ -79,6 +79,8 @@ Try running `rmw_zenoh` Nodes without any router in 2 different configurations:
   ```
 
 * Then run:
+  * `ros2 daemon stop`
+    *This is to make sure a daemon is not running with a wrong configuration (without multicast), impacting `ros2 topic echo` command.*
   * `ZENOH_SESSION_CONFIG_URI=/ros_ws/zenoh_confs/SESSION_CONFIG.json5 ros2 topic pub /chatter std_msgs/msg/String "data: Hello from <YOUR_NAME>"`
   * `ZENOH_SESSION_CONFIG_URI=/ros_ws/zenoh_confs/SESSION_CONFIG.json5 ros2 topic echo /chatter`
 
@@ -103,6 +105,7 @@ With previous configuration the Nodes on different hosts didn't discover each ot
 
   Here `[::]` means any IPv6 or IPv4 interface, and `0` means the OS will choose an available port number.
 * Then run:
+  * `ros2 daemon stop`
   * `ZENOH_SESSION_CONFIG_URI=/ros_ws/zenoh_confs/SESSION_CONFIG.json5 ros2 topic pub /chatter std_msgs/msg/String "data: Hello from <YOUR_NAME>"`
   * `ZENOH_SESSION_CONFIG_URI=/ros_ws/zenoh_confs/SESSION_CONFIG.json5 ros2 topic echo /chatter`
 
