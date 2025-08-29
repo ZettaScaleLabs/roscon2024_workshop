@@ -34,14 +34,18 @@ Then in container A:
         {
           // Rule identifier
           id: "my_rule",
-          // Deny publications ("put" Zenoh operation) in egress on WiFi interface for a Zenoh key expression
+          // Deny publications ("put" messages, and "declare_queryable" + "reply" in case of TRANSIENT_LOCAL publisher)
+          // in egress direction on WiFi interface for the Zenoh key expressions used by the "/chatter" topic
           permission: "deny",
-          messages: [ "put" ],
+          messages: [ "put", "declare_queryable", "reply" ],
           flows:["egress"],
           key_exprs: [
             // The Zenoh key expression used for the "/chatter" topic
             //"0/chatter/std_msgs::msg::dds_::String_/RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18"
-            "*/chatter/**"
+            "*/chatter/*/*",
+            // The Zenoh key expression used for TRANSIENT_LOCAL behaviout of "/chatter" topic
+            //"0/chatter/std_msgs::msg::dds_::String_/RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18/@adv/sub/18bf4236bf6b467ee3ec28d43d182289/15/_"
+            "*/chatter/*/*/@adv/sub/*/*/_"
           ],
         },
       ],
@@ -72,7 +76,7 @@ Now, run the following commands in each container:
 * In container A:
   * Start the router (with the custom configuration): `ZENOH_ROUTER_CONFIG_URI=/ros_ws/zenoh_confs/ROUTER_CONFIG.json5 ros2 run rmw_zenoh_cpp rmw_zenohd`
     You can also add this environment variable to see the router applying the access control:
-    `RUST_LOG=info,zenoh::net::routing::interceptor=debug`
+    `RUST_LOG=info,zenoh::net::routing::interceptor=trace`
   * Start the publisher on the denied topic:
     `ros2 topic pub /chatter std_msgs/msg/String "data: Hello just me!"`
   * Start another publisher on an allowed topic:

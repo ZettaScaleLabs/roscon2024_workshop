@@ -14,6 +14,10 @@
 <sub>Built by the <a href="https://zenoh.io">Zenoh</a> team at <a href="https://www.zettascale.tech">ZettaScale</a> with ❤️</sub>
 </div>
 
+> [!NOTE]
+> ***Last Updated: August 2025***
+> *This repository has been updated to use the latest version of `rmw_zenoh` (0.2.5 on Jazzy)*
+
 ## About
 
 Welcome! This repository is part of the `Demystifying ROS 2 Networking` workshop, scheduled to take place on October 21st at ROSCon 2024. It contains all the resources you’ll need to get started with `rmw_zenoh`, the Zenoh middleware for `ROS 2`.
@@ -47,15 +51,13 @@ Alternatively, you can clone this repository and build the image yourself using 
 ./docker/build_image.sh
 ```
 
-The image includes ROS 2 Jazzy Jalisco (core) with pre-installed demo ROS 2 packages. It also has a workspace at `/ros_ws` where `rmw_zenoh` is already built and installed from source. Both the ROS 2 Jazzy environment and the workspace will be automatically set up when you start a bash session (see the `/root/.bashrc` file for details).
+The image includes ROS 2 Jazzy Jalisco (core) with pre-installed `rmw_zenoh_cpp` and other demo ROS 2 packages. Both the ROS 2 Jazzy environment and the workspace will be automatically set up when you start a bash session (see the `/root/.bashrc` file for details).
 
 ### Using the Docker Container
 
 The docker directory contains several scripts to help manage the container:
 
 * Run [`./docker/create_container.sh`](docker/create_container.sh) to create a container named `roscon2024_workshop`, or use the `$CONTAINER_NAME` environment variable to specify a custom name. The container will use the host network (`--net host`). Important directories in the container include:
-  * `/ros_ws`: The ROS workspace
-  * `/ros_ws/src/rmw_zenoh`: The `rmw_zenoh` source code (already built and installed in the workspace)
   * `/ros_ws/zenoh_confs`: A volume mapped to the `zenoh_confs/` directory in this repository
 * Run [`./docker/login_container.sh`](docker/login_container.sh) to start a bash shell inside the container
 * Run [`./docker/restart_container.sh`](docker/restart_container.sh) to restart the container
