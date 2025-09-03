@@ -44,8 +44,8 @@ Then in container A:
             //"0/chatter/std_msgs::msg::dds_::String_/RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18"
             "*/chatter/*/*",
             // The Zenoh key expression used for TRANSIENT_LOCAL behaviout of "/chatter" topic
-            //"0/chatter/std_msgs::msg::dds_::String_/RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18/@adv/sub/18bf4236bf6b467ee3ec28d43d182289/15/_"
-            "*/chatter/*/*/@adv/sub/*/*/_"
+            //"0/chatter/std_msgs::msg::dds_::String_/RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18/@adv/pub/18bf4236bf6b467ee3ec28d43d182289/15/_"
+            "*/chatter/*/*/@adv/pub/*/*/_"
           ],
         },
       ],
